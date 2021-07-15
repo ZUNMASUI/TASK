@@ -24,9 +24,9 @@
 
 <body>
   <div class="display"></div>
-  <button class="button" id="T_btn" ><span>チョキ</span></button>
-  <button class="button" id="P_btn" ><span>パー</span></button>
-  <button class="button" id="G_btn" ><span>グー</span></button>
+  <button class="button" id="T_btn"><span>チョキ</span></button>
+  <button class="button" id="P_btn"><span>パー</span></button>
+  <button class="button" id="G_btn"><span>グー</span></button>
 
   <!-- チョキ画像の変数とソース-->
   <div class="image" id="tyoki">
@@ -42,6 +42,12 @@
   <div class="image" id="pa">
     <img src="https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%91%E3%83%BC.png?raw=true" />
   </div>
+
+  <div><span>相手の手</span></div>
+
+  <!-- 相手画像の表示-->
+  <img id="enemyImage">
+  <img src ="">
   <script>
     "use strict";
 
@@ -51,6 +57,8 @@
     t_Btn.addEventListener('click', function () {
       tyokiImage.classList.remove("image");
       tyokiImage.classList.add("print");
+      enemyImage.classList.remove("image");
+      enemyImage.classList.add("print");
     }, false);
 
     //ぐーボタンがクリックされると、ぐーの絵が描かれる。
@@ -59,16 +67,24 @@
     g_Btn.addEventListener('click', function () {
       guImage.classList.remove("image");
       guImage.classList.add("print");
+      enemyImage.classList.remove("image");
+      enemyImage.classList.add("print");
     }, false);
 
     //パーボタンがクリックされると、パーの絵が描かれる。
     const p_Btn = document.getElementById('P_btn');
     const paImage = document.getElementById("pa");
     p_Btn.addEventListener('click', function () {
-      paImage.classList.remove("image")
-      paImage.classList.add("print")
+      paImage.classList.remove("image");
+      paImage.classList.add("print");
+      enemyImage.classList.remove("image");
+      enemyImage.classList.add("print");
     }, false);
 
+    const enemyImage = document.getElementById('enemyImage');
+    const images = ["https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%81%E3%83%A7%E3%82%AD.png?raw=true", "https://github.com/ZUNMASUI/TASK/blob/main/%E3%81%90%E3%83%BC.png?raw=true", "https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%91%E3%83%BC.png?raw=true"];
+    const imageNo = Math.floor(Math.random() * images.length)
+    enemyImage.src = images[imageNo];
   </script>
 </body>
 
