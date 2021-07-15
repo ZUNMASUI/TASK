@@ -11,31 +11,62 @@
       text-align: center;
       margin: 20px;
     }
+
+    .image {
+      display: none;
+    }
+
+    .print {
+      display: block;
+    }
   </style>
 </head>
 
 <body>
-  <button id="T_btn" class ="button" onclick=""><span>グー</span></button>
-  <button id="P_btn" class ="button" onclick=""><span>チョキ</span></button>
-  <button id="G_btn" class ="button" onclick=""><span>パー</span></button>
+  <div class="display"></div>
+  <button class="button" id="T_btn" ><span>チョキ</span></button>
+  <button class="button" id="P_btn" ><span>パー</span></button>
+  <button class="button" id="G_btn" ><span>グー</span></button>
+
+  <!-- チョキ画像の変数とソース-->
+  <div class="image" id="tyoki">
+    <img src="https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%81%E3%83%A7%E3%82%AD.png?raw=true" />
+  </div>
+
+  <!-- ぐー画像の変数とソース-->
+  <div class="image" id="gu">
+    <img src="https://github.com/ZUNMASUI/TASK/blob/main/%E3%81%90%E3%83%BC.png?raw=true" />
+  </div>
+
+  <!-- パー画像の変数とソース-->
+  <div class="image" id="pa">
+    <img src="https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%91%E3%83%BC.png?raw=true" />
+  </div>
   <script>
     "use strict";
-    //チョキ画像の変数とソース
-    const tyokiImage = new Image();
-    tyokiImage.src = "https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%81%E3%83%A7%E3%82%AD.png?raw=true";
 
-    //グー画像の変数とソース
-    const paImage = new Image();
-    paImage.src = "https://github.com/ZUNMASUI/TASK/blob/main/%E3%81%90%E3%83%BC.png?raw=true";
-
-    //パー画像の変数とソース
-    const guImage = new Image();
-    guImage.src = "https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%91%E3%83%BC.png?raw=true";
-
-    //ボタンがクリックされると、対象の絵が描かれる。
+    //チョキボタンがクリックされると、チョキの絵が描かれる。
     const t_Btn = document.getElementById('T_btn');
-    T_Btn.addEventListener('click', function () {
-      
+    const tyokiImage = document.getElementById('tyoki');
+    t_Btn.addEventListener('click', function () {
+      tyokiImage.classList.remove("image");
+      tyokiImage.classList.add("print");
+    }, false);
+
+    //ぐーボタンがクリックされると、ぐーの絵が描かれる。
+    const g_Btn = document.getElementById('G_btn');
+    const guImage = document.getElementById("gu");
+    g_Btn.addEventListener('click', function () {
+      guImage.classList.remove("image");
+      guImage.classList.add("print");
+    }, false);
+
+    //パーボタンがクリックされると、パーの絵が描かれる。
+    const p_Btn = document.getElementById('P_btn');
+    const paImage = document.getElementById("pa");
+    p_Btn.addEventListener('click', function () {
+      paImage.classList.remove("image")
+      paImage.classList.add("print")
     }, false);
 
   </script>
