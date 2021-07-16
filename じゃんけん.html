@@ -16,9 +16,9 @@
       display: none;
     }
 
-    .print {
+    /*.print {
       display: block;
-    }
+    }*/
   </style>
 </head>
 
@@ -46,8 +46,11 @@
   <div><span>相手の手</span></div>
 
   <!-- 相手画像の表示-->
-  <img id="enemyImage">
+  <img class="image" id="enemyImage">
   <img src ="">
+
+<!-- じゃんけんの結果の表示-->
+  <div id="kekka"><span></span></div>
   <script>
     "use strict";
 
@@ -56,9 +59,9 @@
     const tyokiImage = document.getElementById('tyoki');
     t_Btn.addEventListener('click', function () {
       tyokiImage.classList.remove("image");
-      tyokiImage.classList.add("print");
+      //tyokiImage.classList.add("print");
       enemyImage.classList.remove("image");
-      enemyImage.classList.add("print");
+      //enemyImage.classList.add("print");
     }, false);
 
     //ぐーボタンがクリックされると、ぐーの絵が描かれる。
@@ -66,9 +69,9 @@
     const guImage = document.getElementById("gu");
     g_Btn.addEventListener('click', function () {
       guImage.classList.remove("image");
-      guImage.classList.add("print");
+      //guImage.classList.add("print");
       enemyImage.classList.remove("image");
-      enemyImage.classList.add("print");
+      //enemyImage.classList.add("print");
     }, false);
 
     //パーボタンがクリックされると、パーの絵が描かれる。
@@ -76,15 +79,27 @@
     const paImage = document.getElementById("pa");
     p_Btn.addEventListener('click', function () {
       paImage.classList.remove("image");
-      paImage.classList.add("print");
+      //paImage.classList.add("print");
       enemyImage.classList.remove("image");
-      enemyImage.classList.add("print");
+      //enemyImage.classList.add("print");
     }, false);
 
+
+    //相手の手が３つの画像ソースからランダムで選択されるようにする
     const enemyImage = document.getElementById('enemyImage');
     const images = ["https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%81%E3%83%A7%E3%82%AD.png?raw=true", "https://github.com/ZUNMASUI/TASK/blob/main/%E3%81%90%E3%83%BC.png?raw=true", "https://github.com/ZUNMASUI/TASK/blob/main/%E3%83%91%E3%83%BC.png?raw=true"];
     const imageNo = Math.floor(Math.random() * images.length)
     enemyImage.src = images[imageNo];
+
+    //条件式でじゃんけんの結果を表示する。
+    const kekka = document.getElementById("kekka");
+    if (imageNo) {
+      kekka.innerHTML = "あなたの勝ち";
+    } else if (index % 3 == 0) {
+      kekka.innerHTML = "あなたの負け";
+    } else {
+      kekka.innerHTML = "あいこ";
+    }
   </script>
 </body>
 
