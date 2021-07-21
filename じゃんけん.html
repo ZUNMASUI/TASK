@@ -45,9 +45,20 @@
 
   <div><span>相手の手</span></div>
 
-  <!-- 相手画像の表示-->
-  <img class="image" id="enemyImage">
-  <img src="">
+  <!-- 相手チョキ画像の表示-->
+  <div class="image" id="enemytyoki">
+    <img src="./tyoki.png" />
+  </div>
+
+  <!-- 相手ぐー画像の変数とソース-->
+  <div class="image" id="enemygu">
+    <img src="./gu.png" />
+  </div>
+
+  <!-- 相手パー画像の変数とソース-->
+  <div class="image" id="enemypa">
+    <img src="./pa.png" />
+  </div>
 
   <!-- じゃんけんの結果の表示-->
   <div class="image" id="kekka"><span></span></div>
@@ -57,20 +68,23 @@
     "use strict";
     let myHand = null;
     let enemyHand = null;
+    const tyoki = "./tyoki.png";
+    const pa = "./pa.png";
+    const gu = "./gu.png";
+
     //チョキボタンがクリックされると、チョキの絵が描かれる。
     const t_Btn = document.getElementById('T_btn');
     const tyokiImage = document.getElementById('tyoki');
     t_Btn.addEventListener('click', function () {
       myHand = "tyoki";
-      console.log(myHand);
-      console.log(enemyHand);
       tyokiImage.classList.remove("image");
       enemyImage.classList.remove("image");
       kekka.classList.remove("image");
-      if(guImage.className === 'image' || paImage.className === 'image'){
+      if (guImage.className === 'image' || paImage.className === 'image') {
         guImage.classList.add("image");
         paImage.classList.add("image");
       }
+      judge();
     }, false);
 
     //ぐーボタンがクリックされると、ぐーの絵が描かれる。
@@ -78,15 +92,14 @@
     const guImage = document.getElementById("gu");
     g_Btn.addEventListener('click', function () {
       myHand = "gu";
-      console.log(myHand);
-      console.log(enemyHand);
       guImage.classList.remove("image");
       enemyImage.classList.remove("image");
       kekka.classList.remove("image");
-      if(tyokiImage.className === 'image' || paImage.className === 'image'){
+      if (tyokiImage.className === 'image' || paImage.className === 'image') {
         tyokiImage.classList.add("image");
         paImage.classList.add("image");
       }
+      judge();
     }, false);
 
     //パーボタンがクリックされると、パーの絵が描かれる。
@@ -94,22 +107,21 @@
     const paImage = document.getElementById("pa");
     p_Btn.addEventListener('click', function () {
       myHand = "pa";
-      console.log(myHand);
-      console.log(enemyHand);
       paImage.classList.remove("image");
       enemyImage.classList.remove("image");
       kekka.classList.remove("image");
-      if(guImage.className === 'image' || tyokiImage.className === 'image'){
+      if (guImage.className === 'image' || tyokiImage.className === 'image') {
         guImage.classList.add("image");
         tyokiImage.classList.add("image");
       }
+      judge();
     }, false);
 
 
     //相手の手が３つの画像ソースからランダムで選択されるようにする
-    const enemyImage = document.getElementById('enemyImage');
+    let enemyImage = document.getElementById('enemyImage');
     const images = ["./tyoki.png", "./pa.png", "./gu.png"];
-    const imageNo = Math.floor(Math.random() * images.length)
+    let imageNo = Math.floor(Math.random() * images.length);
     enemyImage.src = images[imageNo];
 
     if (imageNo === 0) {
@@ -119,24 +131,26 @@
     } else {
       enemyHand = "gu";
     }
-
     //条件式でじゃんけんの結果を表示する。
     const kekka = document.getElementById("kekka");
-    if (myHand === "tyoki" && enemyHand === "pa") {
-      kekka.innerHTML = "あなたの勝ち";
-    } else if (myHand === "tyoki" && enemyHand === "gu") {
-      kekka.innerHTML = "あなたの負けです";
-    } else if (myHand === "pa" && enemyHand === "gu") {
-      kekka.innerHTML = "あなたの勝ち";
-    } else if (myHand === "pa" && enemyHand === "tyoki") {
-      kekka.innerHTML = "あなたの負けです";
-    } else if (myHand === "gu" && enemyHand === "tyoki") {
-      kekka.innerHTML = "あなたの勝ち";
-    } else if (myHand === "gu" && enemyHand === "pa") {
-      kekka.innerHTML = "あなたの負けです";
-    }else {
-      //kekka.innerHTML = "あいこです";
+    function judge() {
+      if (myHand === "tyoki" && enemyHand === "pa") {
+        kekka.innerHTML = "あなたの勝ちです";
+      } else if (myHand === "tyoki" && enemyHand === "gu") {
+        kekka.innerHTML = "あなたの負けです";
+      } else if (myHand === "pa" && enemyHand === "gu") {
+        kekka.innerHTML = "あなたの勝ちです";
+      } else if (myHand === "pa" && enemyHand === "tyoki") {
+        kekka.innerHTML = "あなたの負けです";
+      } else if (myHand === "gu" && enemyHand === "tyoki") {
+        kekka.innerHTML = "あなたの勝ちです";
+      } else if (myHand === "gu" && enemyHand === "pa") {
+        kekka.innerHTML = "あなたの負けです";
+      } else {
+        kekka.innerHTML = "あいこです";
+      }
     }
+
   </script>
 </body>
 
