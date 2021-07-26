@@ -1,2 +1,87 @@
-ターミナルでpushすることも試す。
-それができているか認識すること
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>マルバツゲーム</title>
+  <style type="text/css">
+    #mas {
+      padding: 50px;
+    }
+
+    table {
+      border: 1px solid #999;
+      max-width: 100%;
+      background: blue;
+      text-align: center;
+    }
+
+    text {
+      border: 1px solid #fff;
+      width: 80px;
+      height: 80px;
+      font-size: 35px;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mas">
+    <table id="board"></table>
+  </div>
+  <script>
+    "use strict";
+    // ページ読込後に３列３行の表を表示する。
+    const board = document.getElementById("board");
+    const line_number = 3;
+    let count = 0;
+
+    for (let i = 0; i < line_number; i++) {
+      //html要素をtrから作成
+      //const tr = document.createElement("tr");
+
+
+      for (let j = 0; j < line_number; j++) {
+        const text = document.createElement("text");
+
+        //１回のみのクリックを許容する変数
+        const oneTime = { once: true };
+
+        //trを親要素にして子要素としてtdを追加
+        tr.appendChild(text);
+
+        text.addEventListener('click', (event) => {
+          const action = event.target;
+
+          //1回ごとに交互に○かバツを繰り返す
+          let symbol = count++ % 2 == 0 ? "○" : "×";
+          
+          action.textContent = symbol;
+          if (count == line_number * line_number) {
+            setTimeout(() => {
+              alert('結果は引き分けです');
+            }, 300);
+
+            // //勝ちの場合の条件
+            // else if ("○") {
+
+
+            //   //負けの場合の条件
+            // } else {
+
+            // }
+          }
+        }, oneTime);
+      }
+
+       //boardを親要素にして子要素としてtrを追加
+      board.appendChild(tr);
+    }
+
+  </script>
+</body>
+
+</html>
