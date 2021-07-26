@@ -18,7 +18,7 @@
       text-align: center;
     }
 
-    text {
+    td {
       border: 1px solid #fff;
       width: 80px;
       height: 80px;
@@ -41,25 +41,24 @@
 
     for (let i = 0; i < line_number; i++) {
       //html要素をtrから作成
-      //const tr = document.createElement("tr");
+      const tr = document.createElement("tr");
 
 
       for (let j = 0; j < line_number; j++) {
-        const text = document.createElement("text");
+        const td = document.createElement("td");
 
         //１回のみのクリックを許容する変数
         const oneTime = { once: true };
 
         //trを親要素にして子要素としてtdを追加
-        tr.appendChild(text);
+        tr.appendChild(td);
 
-        text.addEventListener('click', (event) => {
+        td.addEventListener('click', (event) => {
           const action = event.target;
 
-          //1回ごとに交互に○かバツを繰り返す
-          let symbol = count++ % 2 == 0 ? "○" : "×";
-          
-          action.textContent = symbol;
+          //１回事に交互に繰り返す変数
+          let text = count++ % 2 == 0 ? "○" : "×";
+          action.textContent = text;
           if (count == line_number * line_number) {
             setTimeout(() => {
               alert('結果は引き分けです');
