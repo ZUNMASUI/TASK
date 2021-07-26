@@ -38,7 +38,6 @@
     const board = document.getElementById("board");
     const line_number = 3;
     let count = 0;
-
     for (let i = 0; i < line_number; i++) {
       //html要素をtrから作成
       const tr = document.createElement("tr");
@@ -56,9 +55,11 @@
         td.addEventListener('click', (event) => {
           const action = event.target;
 
-          //１回事に交互に繰り返す変数
+          //カウントを増やしながら１回事に交互に繰り返す変数
           let text = count++ % 2 == 0 ? "○" : "×";
           action.textContent = text;
+
+          //ゲームの結果を表示する処理
           if (count == line_number * line_number) {
             setTimeout(() => {
               alert('結果は引き分けです');
