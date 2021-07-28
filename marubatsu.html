@@ -56,11 +56,11 @@
     let td = document.getElementsByTagName("td");
     let count = 0;
 
-    //勝敗判定の配列
-    const board = [
-      ['○','✖︎','○'],
-      ['✖︎','○','○'],
-      ['✖︎','✖︎','○'],
+    //マス目の初期状態を配列で表現
+    let board = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
     ];
     //１回のみのクリックを許容する変数
     const oneTime = { once: true };
@@ -68,28 +68,137 @@
     //tdの要素１つ１つにクリックイベントを起こせるようにする
     for (let index = 0; index < td.length; index++) {
       td[index].addEventListener('click', (event) => {
-        console.log(event);
-        const action = event.target;
+        let action = event.target;
         //カウントを増やしながら１回事に交互に繰り返す変数
         let text = null;
         if (count % 2 === 0) {
           text = "○"
+
+          //マルだったら配列に１を入れる
+          board[Math.floor(index / 3)][index % 3] = 1;
         } else {
           text = "✖︎";
+
+          //バツだったら配列に２を入れる
+          board[Math.floor(index / 3)][index % 3] = 2;
         }
         count++;
         action.textContent = text;
+        //何もない状態の配列
+        //index0がboard[0][0]左側が商　右側が３で割った余り %3
+        //index1がboard[0][1]
+        //index2がboard[0][2]
+        //index3がboard[1][0]
+        //index4がboard[1][1]
+        //index5がboard[1][2]
+        //index6がboard[2][0]
+        //index7がboard[2][1]
+        //index8がboard[2][2]
 
-        //勝敗判定の
-
+        //マルの勝ち判定
+        function circleWin() {
+          //上一列に1が揃ったらマルの勝ち
+          if (board[0][0] === 1 && board[0][1] === 1 && board[0][2] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //左から斜め一列に1が揃ったらマルの勝ち
+          if (board[0][0] === 1 && board[1][1] === 1 && board[2][2] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //右から斜め一列に1が揃ったらマルの勝ち
+          if (board[0][2] === 1 && board[1][1] === 1 && board[2][0] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //右の縦一列に1が揃ったらマルの勝ち
+          if (board[0][2] === 1 && board[1][2] === 1 && board[2][2] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //下一列に1が揃ったらマルの勝ち
+          if (board[2][0] === 1 && board[2][1] === 1 && board[2][2] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //真ん中縦一列に1が揃ったらマルの勝ち
+          if (board[0][1] === 1 && board[1][1] === 1 && board[2][1] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //左一列に1が揃ったらマルの勝ち
+          if (board[0][0] === 1 && board[1][0] === 1 && board[2][0] === 1) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+        }
+        //バツの勝ち判定
+        function crossWin() {
+          //上一列に2が揃ったらバツの勝ち
+          if (board[0][0] === 2 && board[0][1] === 2 && board[0][2] === 2) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //左から斜め一列に2が揃ったらバツの勝ち
+          if (board[0][0] === 2 && board[1][1] === 2 && board[2][2] === 2) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+          //右から斜め一列に2が揃ったらバツの勝ち
+          if (board[0][2] === 2 && board[1][1] === 2 && board[2][0] === 2) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+          //右の縦一列に2が揃ったらバツの勝ち
+          if (board[0][2] === 2 && board[1][2] === 2 && board[2][2] === 2) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+          //下一列に2が揃ったらバツの勝ち
+          if (board[2][0] === 2 && board[2][1] === 2 && board[2][2] === 2) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+          //真ん中縦一列に2が揃ったらバツの勝ち
+          if (board[0][1] === 2 && board[1][1] === 2 && board[2][1] === 2) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+          //左一列に2が揃ったらバツの勝ち
+          if (board[0][0] === 2 && board[1][0] === 2 && board[2][0] === 2) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+        }
+        circleWin();
+        crossWin();
         //最後まで結果が出なかった場合に引き分けを表示する処理
-        if (count == 3 * 3) {
+        if (count == 3 * 3 ) {
           setTimeout(() => {
-            alert('結果は引き分けです');
+            alert('引き分けです');
           }, 300);
         }
       }, oneTime);
     }
+
+    //tdがクリックされると0が１や２に変わる
+
+
 
   </script>
 </body>
