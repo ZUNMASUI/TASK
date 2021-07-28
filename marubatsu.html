@@ -30,55 +30,65 @@
 
 <body>
   <div id="mas">
-    <table id="board"></table>
+    <table id="board">
+      <!-- 行1 -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <!-- 行2 -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <!-- 行3 -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
   </div>
   <script>
     "use strict";
-    // ページ読込後に３列３行の表を表示する。
-    const board = document.getElementById("board");
-    const line_number = 3;
+    let td = document.getElementsByTagName("td");
     let count = 0;
-    for (let i = 0; i < line_number; i++) {
-      //html要素をtrから作成
-      const tr = document.createElement("tr");
 
+    //勝敗判定の配列
+    const board = [
+      ['○','✖︎','○'],
+      ['✖︎','○','○'],
+      ['✖︎','✖︎','○'],
+    ];
+    //１回のみのクリックを許容する変数
+    const oneTime = { once: true };
 
-      for (let j = 0; j < line_number; j++) {
-        const td = document.createElement("td");
+    //tdの要素１つ１つにクリックイベントを起こせるようにする
+    for (let index = 0; index < td.length; index++) {
+      td[index].addEventListener('click', (event) => {
+        console.log(event);
+        const action = event.target;
+        //カウントを増やしながら１回事に交互に繰り返す変数
+        let text = null;
+        if (count % 2 === 0) {
+          text = "○"
+        } else {
+          text = "✖︎";
+        }
+        count++;
+        action.textContent = text;
 
-        //１回のみのクリックを許容する変数
-        const oneTime = { once: true };
+        //勝敗判定の
 
-        //trを親要素にして子要素としてtdを追加
-        tr.appendChild(td);
-
-        td.addEventListener('click', (event) => {
-          const action = event.target;
-
-          //カウントを増やしながら１回事に交互に繰り返す変数
-          let text = count++ % 2 == 0 ? "○" : "×";
-          action.textContent = text;
-
-          //ゲームの結果を表示する処理
-          if (count == line_number * line_number) {
-            setTimeout(() => {
-              alert('結果は引き分けです');
-            }, 300);
-
-            // //勝ちの場合の条件
-            // else if ("○") {
-
-
-            //   //負けの場合の条件
-            // } else {
-
-            // }
-          }
-        }, oneTime);
-      }
-
-       //boardを親要素にして子要素としてtrを追加
-      board.appendChild(tr);
+        //最後まで結果が出なかった場合に引き分けを表示する処理
+        if (count == 3 * 3) {
+          setTimeout(() => {
+            alert('結果は引き分けです');
+          }, 300);
+        }
+      }, oneTime);
     }
 
   </script>
