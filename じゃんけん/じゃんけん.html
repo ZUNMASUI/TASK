@@ -41,20 +41,10 @@
 
   <div><span>相手の手</span></div>
 
-  <!-- 相手チョキ画像の表示-->
-  <div class="image" id="enemytyoki">
-    <img src="./tyoki.png" />
-  </div>
+  <!-- 相手画像の表示-->
+  <img class="image" id="enemyImage">
+    
 
-  <!-- 相手ぐー画像の変数とソース-->
-  <div class="image" id="enemygu">
-    <img src="./gu.png" />
-  </div>
-
-  <!-- 相手パー画像の変数とソース-->
-  <div class="image" id="enemypa">
-    <img src="./pa.png" />
-  </div>
 
   <!-- じゃんけんの結果の表示-->
   <div class="image" id="kekka"><span></span></div>
@@ -64,9 +54,6 @@
     "use strict";
     let myHand = null;
     let enemyHand = null;
-    const tyoki = "./tyoki.png";
-    const pa = "./pa.png";
-    const gu = "./gu.png";
 
     //チョキボタンがクリックされると、チョキの絵が描かれる。
     const t_Btn = document.getElementById('T_btn');
