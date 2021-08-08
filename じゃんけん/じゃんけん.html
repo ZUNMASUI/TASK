@@ -15,11 +15,15 @@
     .image {
       display: none;
     }
+    img {
+      width: 250px;
+      height: 250px;
+    }
   </style>
 </head>
 
 <body>
-  <div class="display"></div>
+
   <button class="button" id="T_btn"><span>チョキ</span></button>
   <button class="button" id="P_btn"><span>パー</span></button>
   <button class="button" id="G_btn"><span>グー</span></button>
@@ -52,7 +56,10 @@
 
   <script>
     "use strict";
+    //自分の手の変数
     let myHand = null;
+
+    //相手のての変数
     let enemyHand = null;
 
     //チョキボタンがクリックされると、チョキの絵が描かれる。

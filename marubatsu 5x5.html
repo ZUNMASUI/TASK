@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>マルバツゲーム</title>
+  <style type="text/css">
+    #mas {
+      padding: 50px;
+    }
+
+    table {
+      border: 1px solid #999;
+      max-width: 100%;
+      background: blue;
+      text-align: center;
+    }
+
+    td {
+      border: 1px solid #fff;
+      width: 80px;
+      height: 80px;
+      font-size: 35px;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mas">
+    <table id="board">
+      <!-- 行1 -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <!-- 行2 -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <!-- 行3 -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    "use strict";
+    let td = document.getElementsByTagName("td");
+    let count = 0;
+
+    //マス目の初期状態を配列で表現
+    let board = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ];
+    //１回のみのクリックを許容する変数
+    const oneTime = { once: true };
+
+    //tdの要素１つ１つにクリックイベントを起こせるようにする
+    for (let index = 0; index < td.length; index++) {
+      td[index].addEventListener('click', (event) => {
+        let action = event.target;
+        //カウントを増やしながら１回事に交互に繰り返す変数
+        let text = null;
+        if (count % 2 === 0) {
+          text = "○"
+
+          //マルだったら配列に１を入れる
+          board[Math.floor(index / 3)][index % 3] = 1;
+        } else {
+          text = "✖︎";
+
+          //バツだったら配列に２を入れる
+          board[Math.floor(index / 3)][index % 3] = 2;
+        }
+        count++;
+        action.textContent = text;
+        verticalWWin();
+        besideWin();
+        xWin();
+      }, oneTime)
+    }
+
+    //横列のマルとバツの勝ち判定関数
+    function besideWin() {
+      //横一列の勝ち判定　同じ配列内に１もしくは２が配列の長さと同じ要素を締めれば揃ったと考えられる。
+      //board[i]の中のjが全て１や２ならカウントが３に至って勝敗判定できる
+      for (let i = 0; i < board.length; i++) {
+
+        const length = board[i].length;
+        //配列の中の１のカウント
+        let oneCount = 0;
+        //配列の中の２の数のカウント
+        let twoCount = 0;
+        for (let j = 0; j < length; j++) {
+          if (board[i][j] === 1) {
+            oneCount++;
+          };
+          if (board[i][j] === 2) {
+            twoCount++;
+          }
+        };
+
+        //１の数と配列の長さが一致すれば判定できる
+        if (oneCount === length) {
+          setTimeout(() => {
+            alert('○の勝ちです');
+          }, 300);
+        };
+
+        //２の数と配列の長さが一致すれば判定できる
+        if (twoCount === length) {
+          setTimeout(() => {
+            alert('✖︎の勝ちです');
+          }, 300);
+        };
+
+        //カウントが同じ配列内で確認するので、列内を超えるとリセットする
+        oneCount = 0;
+        twoCount = 0;
+      };
+
+
+      //全てのマスに入力されて勝利条件を満たさなかった場合の判定
+      if (count == 3 * 3) {
+        setTimeout(() => {
+          alert('引き分けです');
+        }, 300);
+      }
+
+    }
+    //縦列を判定する関数
+    function verticalWWin() {
+      // board[i]の中身が０、１、２それぞれで[j]が１や２で統一されれば判定される
+      // 縦一列の勝ち判定。同じ行に１か２が揃った判定について
+      const length = board.length;
+      //配列の中の１のカウント
+      let oneCount = 0;
+      //配列の中の２の数のカウント
+      let twoCount = 0;
+      for (let j = 0; j < length; j++) {
+        for (let i = 0; i < length; i++) {
+          //列番号を変数で表す　列番号を固定して行を変えていく
+          if (board[i][j] === 1) {
+            oneCount++
+          };
+          if (board[i][j] === 2) {
+            twoCount++
+          }
+          //１の数と配列の長さが一致すれば判定できる
+          if (oneCount === length) {
+            setTimeout(() => {
+              alert('○の勝ちです');
+            }, 300);
+          };
+          //２の数と配列の長さが一致すれば判定できる
+          if (twoCount === length) {
+            setTimeout(() => {
+              alert('✖︎の勝ちです');
+            }, 300);
+          };
+        }
+        oneCount = 0;
+        twoCount = 0;
+      }
+      //全てのマスに入力されて勝利条件を満たさなかった場合の判定
+      if (count == 3 * 3) {
+        setTimeout(() => {
+          alert('引き分けです');
+        }, 300);
+      }
+    };
+    //斜めでの勝利判定
+    function xWin() {
+      const length = board.length;
+      //配列の中の１のカウント
+      let oneCount = 0;
+      //配列の中の２の数のカウント
+      let twoCount = 0;
+      for (let j = 0; j < length; j++) {
+        for (let i = 0; i < length; i++) {
+          let num = i + j ;
+
+          //対象の座標が全て偶数だったので条件式に追加
+          if (board[i][j] === 1 && num % 2 === 0 ) {
+            oneCount++
+          };
+          if (board[i][j] === 2 && num % 2 === 0) {
+            twoCount++
+          }
+        }
+
+        //１の数と配列の長さが一致すれば判定できる
+        if (oneCount === length) {
+          setTimeout(() => {
+            alert('○の勝ちです');
+          }, 300);
+        };
+        //２の数と配列の長さが一致すれば判定できる
+        if (twoCount === length) {
+          setTimeout(() => {
+            alert('✖︎の勝ちです');
+          }, 300);
+        };
+        console.log(oneCount);
+      }
+      oneCount = 0;
+      twoCount = 0;
+    }
+
+    //勝敗が決まればゲームを止める機能
+
+
+
+  </script>
+</body>
+
+</html>
