@@ -80,25 +80,19 @@
 
     //行列の変数
     const lineNumber = 5;
-
+    let board = []
     //配列を変数を使い列の数だけ作成
-    //const newArray = new Array(lineNumber).fill(0);
-    let board = [];
-    // //それを同じだけ行にし、その中に０を格納
-    // for (let j = 0; j < newArray.length; j++) {
-    //   board[j] = newArray
-    // }
-
-    board =
-      [[0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0]]
+    const newArray = new Array(lineNumber).fill(0);
+    for (let j = 0; j < newArray.length; j++) {
+      board[j] = newArray.map((num) => {
+        return 0;
+      });
+    }
     //マス目の初期状態を配列で表現
 
     //１回のみのクリックを許容する変数
     const oneTime = { once: true };
+
 
     //tdの要素１つ１つにクリックイベントを起こせるようにする
     for (let index = 0; index < td.length; index++) {
@@ -150,7 +144,7 @@
     function verticalWWin() {
       const length = board.length;
       for (let i = 0; i < length; i++) {
-        //横を固定し各行の先頭の要素が１か２を判定することを目指す。
+        //現在の配列から縦でみる配列を生成する。
         const oneCount = board.map((one) => {
           return one[i]
         });
@@ -179,39 +173,27 @@
     //斜めでの勝利判定
     function xWin() {
       const length = board.length;
-      for (let i = 0; i < length; i++) {
-        const oneCount = board[i].filter((one) => {
-          return one === 1 && i ;
+      //斜め判定のループ　添字とその逆で斜めを判定
+      const diagonal = board.map((one, index) => {
+        return one[index] || one[(lineNumber - 1) - index];
       })
-      // if (board[i]) {
-
-      // }
-
-      console.log(oneCount);
-
-      // //対象の座標が全て偶数だったので条件式に追加
-      // if (board[i][j] === 1 && num % 2 === 0) {
-      //   oneCount++
-      // };
-      // if (board[i][j] === 2 && num % 2 === 0) {
-      //   twoCount++
-      // }
-    }
-
-      // //１の数と配列の長さが一致すれば判定できる
-      // if (oneCount === length) {
-      //   setTimeout(() => {
-      //     alert('○の勝ちです');
-      //   }, 300);
-      // };
-      // //２の数と配列の長さが一致すれば判定できる
-      // if (twoCount === length) {
-      //   setTimeout(() => {
-      //     alert('✖︎の勝ちです');
-      //   }, 300);
-      // };
-      // console.log(oneCount);
-
+      const arr1 = diagonal.filter((one) => {
+        return one === 1;
+      });
+      const arr2 = diagonal.filter((two) => {
+        return two === 2;
+      })
+      console.log(arr1)
+      if (arr1.length === lineNumber) {
+        setTimeout(() => {
+          alert('○の勝ちです');
+        }, 300);
+      };
+      if (arr2.length === lineNumber) {
+        setTimeout(() => {
+          alert('✖︎の勝ちです');
+        }, 300);
+      }
     };
     //勝敗が決まればゲームを止める機能
 
