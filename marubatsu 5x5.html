@@ -25,6 +25,12 @@
       font-size: 35px;
       color: #fff;
     }
+
+    button {
+      text-align: center;
+      margin: 20px;
+      display: flex;
+    }
   </style>
 </head>
 
@@ -73,6 +79,7 @@
       </tr>
     </table>
   </div>
+  <button class="button" id="Retry"><span>もう一度</span></button>
   <script>
     "use strict";
     let td = document.getElementsByTagName("td");
@@ -88,7 +95,19 @@
         return 0;
       });
     }
-    //マス目の初期状態を配列で表現
+
+    //勝敗結果のアラート関数
+    function alert_Maru() {
+      setTimeout(() => {
+        alert('○の勝ちです');
+      }, 300);
+    };
+    function alert_Batsu() {
+      setTimeout(() => {
+        alert('✖︎の勝ちです');
+      }, 300);
+    }
+
 
     //１回のみのクリックを許容する変数
     const oneTime = { once: true };
@@ -98,6 +117,7 @@
     for (let index = 0; index < td.length; index++) {
       td[index].addEventListener('click', (event) => {
         let action = event.target;
+        console.log(event.target)
         //カウントを増やしながら１回事に交互に繰り返す変数
         let text = null;
         if (count % 2 === 0) {
@@ -117,33 +137,47 @@
         besideWin();
         xWin();
 
+        //引き分け判定
+        if (count == lineNumber * lineNumber) {
+          setTimeout(() => {
+            alert('引き分けです');
+          }, 300);
+        }
       }, oneTime)
     }
 
+    const re_Btn = document.getElementById('Retry');
+    re_Btn.addEventListener('click', function () {
+      //もう一度配列の中身を０に
+      for (let j = 0; j < newArray.length; j++) {
+        board[j] = newArray.map((num) => {
+          return 0;
+        });
+      }
+      //カウントのリセット
+      count = 0;
+      //対象のテキストの内容をなしに戻す。
+      td.textContent = null;
+    })
+
     //横列のマルとバツの勝ち判定関数
     function besideWin() {
-      const length = board.length;
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < lineNumber; i++) {
         //縦を固定しその配列内で１と２の要素の配列をそれぞれarr1とarr2へ格納しその長さで判定
         const arr1 = board[i].filter(one => one === 1);
         const arr2 = board[i].filter(two => two === 2);
         if (arr1.length === lineNumber) {
-          setTimeout(() => {
-            alert('○の勝ちです');
-          }, 300);
+          alert_Maru();
         };
         if (arr2.length === lineNumber) {
-          setTimeout(() => {
-            alert('✖︎の勝ちです');
-          }, 300);
+          alert_Batsu();
         };
       }
     }
 
     //縦列を判定する関数
     function verticalWWin() {
-      const length = board.length;
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < lineNumber; i++) {
         //現在の配列から縦でみる配列を生成する。
         const oneCount = board.map((one) => {
           return one[i]
@@ -159,20 +193,15 @@
           return two === 2;
         });
         if (arr1.length === lineNumber) {
-          setTimeout(() => {
-            alert('○の勝ちです');
-          }, 300);
+          alert_Maru();
         };
         if (arr2.length === lineNumber) {
-          setTimeout(() => {
-            alert('✖︎の勝ちです');
-          }, 300);
+          alert_Batsu();
         }
       };
     }
     //斜めでの勝利判定
     function xWin() {
-      const length = board.length;
       //斜め判定のループ　添字とその逆で斜めを判定
       const diagonal = board.map((one, index) => {
         return one[index] || one[(lineNumber - 1) - index];
@@ -183,19 +212,13 @@
       const arr2 = diagonal.filter((two) => {
         return two === 2;
       })
-      console.log(arr1)
       if (arr1.length === lineNumber) {
-        setTimeout(() => {
-          alert('○の勝ちです');
-        }, 300);
+        alert_Maru();
       };
       if (arr2.length === lineNumber) {
-        setTimeout(() => {
-          alert('✖︎の勝ちです');
-        }, 300);
+        alert_Batsu();
       }
     };
-    //勝敗が決まればゲームを止める機能
 
 
 
