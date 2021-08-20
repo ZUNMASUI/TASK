@@ -117,8 +117,8 @@
     for (let index = 0; index < td.length; index++) {
       td[index].addEventListener('click', (event) => {
         let action = event.target;
-        console.log(event.target)
         //カウントを増やしながら１回事に交互に繰り返す変数
+        //カウントの名前をクリックカウントへ変更する
         let text = null;
         if (count % 2 === 0) {
           text = "○"
@@ -138,7 +138,7 @@
         xWin();
 
         //引き分け判定
-        if (count == lineNumber * lineNumber) {
+        if (count === lineNumber * lineNumber) {
           setTimeout(() => {
             alert('引き分けです');
           }, 300);
@@ -167,7 +167,9 @@
     function besideWin() {
       for (let i = 0; i < lineNumber; i++) {
         //縦を固定しその配列内で１と２の要素の配列をそれぞれarr1とarr2へ格納しその長さで判定
-        const arr1 = board[i].filter(one => one === 1);
+        const arr1 = board[i].filter((one) => {
+          return one === 1;
+        });
         const arr2 = board[i].filter(two => two === 2);
         if (arr1.length === lineNumber) {
           alert_Maru();
