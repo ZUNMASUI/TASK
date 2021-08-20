@@ -146,6 +146,7 @@
       }, oneTime)
     }
 
+    //リセットボタン
     const re_Btn = document.getElementById('Retry');
     re_Btn.addEventListener('click', function () {
       //もう一度配列の中身を０に
@@ -156,8 +157,10 @@
       }
       //カウントのリセット
       count = 0;
-      //対象のテキストの内容をなしに戻す。
-      td.textContent = null;
+      //全てのテキストの内容をなしに戻す。
+      for (let index = 0; index < td.length; index++) {
+        td[index].textContent = null;
+      }
     })
 
     //横列のマルとバツの勝ち判定関数
